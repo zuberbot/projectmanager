@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:webflow-config="http://www.springframework.org/schema/webflow-config"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.4.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<!-- Look for beans at the top level package down, avoiding adding this annotation everywhere -->
+	<context:component-scan base-package="com.myprojects.web"></context:component-scan>
+
+	<mvc:resources location="/resources/" mapping="/static/**" />
+
+	<!-- Instead of using InternalResourceViewResolver we're using TilesViewResolver -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"></bean>
+
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/layouts/default.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Flow registry tells where a web flow is located such that the id is the URL user goes to -->
+	<webflow-config:flow-registry id="flowRegistry" base-path="/WEB-INF/flows" flow-builder-services="flowBuilderServices">
+		<webflow-config:flow-location path="projectblog-flow.xml" id="myprojects"></webflow-config:flow-location>
+		<webflow-config:flow-location path="createproject-flow.xml" id="createprojectflow"></webflow-config:flow-location>
+		<webflow-config:flow-location path="myprojects-flow.xml" id="myprojectsflow"></webflow-config:flow-location>
+	</webflow-config:flow-registry>
+
+	<!-- Actually run the web flow using the flow registry -->
+	<webflow-config:flow-executor id="flowExecutor" flow-registry="flowRegistry">
+		<webflow-config:flow-execution-repository max-executions="5" max-execution-snapshots="30" />
+	</webflow-config:flow-executor>
+
+	<!-- Find the flow executor and run it -->
+	<!-- Like a controller but instead of going to a view resolver it'll go to the flow executor -->
+	<bean id="flowHandlerAdapter" class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor"></property>
+	</bean>
+
+	<!-- Identify flow URL -->
+	<bean id="flowHandlerMapping" class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry"></property>
+		<!-- <property name="order" value="0"></property> -->
+	</bean>
+
+	<webflow-config:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" validator="validator" />
+
+	<bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers" ref="tilesViewResolver"></property>
+	</bean>
+
+	<!-- Handle bean validations, e.g. data coming from a form using a bean -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"></bean>
+
+	<!-- http://www.codingpedia.org/ama/recaptcha-and-spring-mvc-integration/ -->
+	<!-- https://www.google.com/recaptcha/admin#site/318719158?setup -->
+	<bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
+        <property name="privateKey" value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
+    </bean>
+    
+    <!-- ValidationMessages is already the default prop file.
+    	 But needed for the RECAPTCHA.
+    	 To add more prop files remove comments here: -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="ValidationMessages"></property>
+	</bean>
+     
+    <!-- Add ability to provide strings in JSP from properties file -->
+	<util:properties id="ValidationMessages" location="classpath:ValidationMessages.properties" />
+	<!-- <context:property-placeholder properties-ref="ValidationMessages" /> -->
+	    
+</beans>
