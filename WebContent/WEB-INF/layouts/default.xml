@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> <!-- UTF-8 -->
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="projects.base" template="/WEB-INF/templates/default.jsp">
+		<put-attribute name="includes" value=""></put-attribute>
+		<put-attribute name="title" value="Projects Home page"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/content.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"></put-attribute>
+	</definition>
+	<definition name="home" extends="projects.base">
+		<put-attribute name="title" value="Projects Home page"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/home.jsp"></put-attribute>
+	</definition>
+	<definition name="showCreateProjectForm" extends="projects.base">
+		<put-attribute name="title" value="Create Project"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/createproject.jsp"></put-attribute>
+	</definition>
+	<definition name="showCreateProjectDetailsForm" extends="projects.base">
+		<put-attribute name="title" value="Create Project Details"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/createprojectdetails.jsp"></put-attribute>
+	</definition>
+	<definition name="showCreateProjectOrganizationForm" extends="projects.base">
+		<put-attribute name="title" value="Create Project Organization"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/createprojectorganization.jsp"></put-attribute>
+	</definition>
+	<definition name="showProjectCreated" extends="projects.base">
+		<put-attribute name="title" value="Project Created"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/projectcreated.jsp"></put-attribute>
+	</definition>
+	<definition name="showMyProjects" extends="projects.base">
+		<put-attribute name="title" value="My Projects"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/myprojectsflow.jsp"></put-attribute>
+	</definition>
+	<definition name="showMyProjectDetails" extends="projects.base">
+		<put-attribute name="title" value="My Projects Details"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/myprojectdetailsflow.jsp"></put-attribute>
+	</definition>
+	<definition name="searchprojects" extends="projects.base">
+		<put-attribute name="title" value="Search Projects"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/searchprojects.jsp"></put-attribute>
+	</definition>
+	<definition name="projectdeleted" extends="projects.base">
+		<put-attribute name="title" value="Project Deleted"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/project/projectdeleted.jsp"></put-attribute>
+	</definition>
+	<definition name="sendMessage" extends="projects.base">
+		<put-attribute name="title" value="Send Message"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/message/sendmessage.jsp"></put-attribute>
+	</definition>
+	<definition name="messageSent" extends="projects.base">
+		<put-attribute name="title" value="Message Sent"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/message/messagesent.jsp"></put-attribute>
+	</definition>
+	<definition name="newaccount" extends="projects.base">
+		<put-attribute name="includes" value="/WEB-INF/tiles/account/newaccountscript.jsp"></put-attribute>
+		<put-attribute name="title" value="Create Account"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/account/newaccount.jsp"></put-attribute>
+	</definition>
+	<definition name="accountcreated" extends="projects.base">
+		<put-attribute name="includes" value="/WEB-INF/tiles/account/newaccountscript.jsp"></put-attribute>
+		<put-attribute name="title" value="Account Created"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/account/accountcreated.jsp"></put-attribute>
+	</definition>
+	<definition name="login" extends="projects.base">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/account/login.jsp"></put-attribute>
+	</definition>
+	<definition name="help" extends="projects.base">
+		<put-attribute name="title" value="Help"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/help.jsp"></put-attribute>
+	</definition>
+	<definition name="error" extends="projects.base">
+		<put-attribute name="title" value="Error"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/tiles/error.jsp"></put-attribute>
+	</definition>
+</tiles-definitions>
