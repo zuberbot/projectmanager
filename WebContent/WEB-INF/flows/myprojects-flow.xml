@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<var name="project" class="com.myprojects.web.dao.entity.Project" />
+	<var name="projectBlog" class="com.myprojects.web.dao.entity.ProjectBlog" />
+	<var name="projectDetails" class="com.myprojects.web.dao.entity.ProjectDetails" />
+	<var name="projectOrganization" class="com.myprojects.web.dao.entity.ProjectOrganization" />
+	<var name="projectId" class="java.lang.String" />
+
+	<view-state id="showMyProjects">
+		<on-entry>
+			<set name="flowScope.fromProjectList" value="myProjectBlogsService.getCurrentProjects(currentUser?.name)" />			     
+		</on-entry>
+		<transition on="gotoMyProjectDetails" to="myProjectDetails" />
+	</view-state>
+
+	<action-state id="myProjectDetails">
+		<set name="projectId" value="requestParameters.projectid" />
+		<transition to="showMyProjectDetails" />
+	</action-state>
+
+	<view-state id="showMyProjectDetails" model="projectBlog">
+		<on-entry>
+			<set name="project" value="myProjectsService.getProject(projectId)" />
+			<set name="projectDetails" value="myProjectsService.getProjectDetails(projectId)" />
+			<set name="projectOrganization" value="myProjectsService.getProjectOrganization(projectId)" />
+			<set name="flowScope.projectBlogList" value="myProjectBlogsService.getProjectBlogs(projectId)" />
+			<set name="projectBlog" value="myProjectBlogsService.newProjectBlog()" />
+		</on-entry>
+		<!-- send comes from the _eventid in the JSP -->
+		<transition on="send" to="postBlog" />
+	</view-state>
+
+	<action-state id="postBlog">
+		<evaluate expression="myProjectBlogsService.postBlog(projectBlog)" />
+		<transition to="showMyProjectDetails" />
+	</action-state>
+
+</flow>
+
+<!-- Doesn't work before validation -->
+<!-- <evaluate expression="myProjectBlogsService.getRequestParameter('projectId', externalContext)" result="flowScope.projectId"/> -->
+<!-- See http://docs.spring.io/spring-webflow/docs/current/reference/html/views.html#view-validation-jsr303-partial -->
+<!-- <evaluate expression="requestMapperController.getProjectId(flowRequestContext)" result="requestScope.projectId" /> -->		
