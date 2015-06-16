@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<!-- Set up the model (coincides with commandName in myprojects.jsp) -->
+	<var name="projectBlog" class="com.myprojects.web.dao.entity.ProjectBlog" />
+
+	<view-state id="showProjectBlog" model="projectBlog">
+		<on-entry>
+			<!-- ? is safe navigation operator in case of NPE -->
+			<!-- 
+			<set name="flowScope.fromUser" value="myProjectBlogsService.getUser(currentUser?.name)"></set>
+			<set name="flowScope.fromName" value="fromUser?.name"></set>
+			<set name="flowScope.fromEmail" value="fromUser?.email"></set>
+			 -->
+			<!-- Instead of flowScope can use requestScope which means variable only endures for the length of the request -->
+			<set name="projectBlog" value="myProjectBlogsService.newProjectBlog()"></set>
+			<set name="flowScope.fromProjectList" value="myProjectBlogsService.getCurrentProjects(currentUser?.name)"></set>			     
+			<set name="flowScope.fromProjectBlogList" value="myProjectBlogsService.getCurrentProjectBlogs(currentUser?.name)"></set>
+			<set name="flowScope.fromProjectJQuery" value="myProjectBlogsService.getProjectsJQuery(currentUser?.name)"></set>
+		</on-entry>
+		<!-- send matches _eventid in myprojects.jsp -->
+		<transition on="send" to="postBlog"></transition>
+	</view-state>
+
+	<!-- Action state to occur in between the view states -->
+	<action-state id="postBlog">
+		<!-- Doesn't work before validation -->
+		<!-- <evaluate expression="myProjectBlogsService.getRequestParameter('projectId', externalContext)" result="flowScope.projId"/> -->
+		<!-- See http://docs.spring.io/spring-webflow/docs/current/reference/html/views.html#view-validation-jsr303-partial -->
+		<evaluate expression="myProjectBlogsService.postBlog(projectBlog)"></evaluate>
+		<transition to="showProjectBlog"></transition> <!-- to="blogSent" -->
+	</action-state>
+
+	<!-- 
+	<view-state id="blogSent">
+		<transition to="showProjectBlog"></transition>
+	</view-state>
+	 -->
+
+</flow>
