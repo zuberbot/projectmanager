@@ -1,0 +1,369 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+.header {
+	background-color: #ccffcc;
+	height: 35px;
+	border-bottom-style: solid;
+	border-width: 1px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.headerwrapper {
+	display: table;
+	margin-left: 200px;
+}
+
+.headerlinks {
+	display: table-row;
+}
+
+#loginlink, #createaccountlink, #homelink, #helplink, #helplinkauth, #logoutlink, #projectslink, #createprojectlink, #medialinks {
+	display: table-cell;
+	background-color: #ccffcc;
+	height: 35px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+#searchform {
+	display: table-cell;
+	background-color: #ccffcc;
+	height: 35px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+#searchtextbox {
+	border: 1px solid #c2c2c2;
+	width: 300px;
+	position: relative; 
+	top: 3px;
+}
+
+#searchtextboxIE {
+	border: 1px solid #c2c2c2;
+	width: 300px;
+	position: relative; 
+	top: -5px;
+}
+
+#headerspacer {
+	display: block;
+	width: 30px;
+	height: 0px;
+}
+
+#socialmedialinkauth {
+	position: relative; 
+	top: 8px; 
+	white-space: nowrap; 
+	margin-left: 25px;
+}
+
+#socialmedialink {
+	position: relative; 
+	top: 8px; 
+	white-space: nowrap; 
+	margin-left: 489px;
+}
+
+#anchorlinklogin, #anchorlinkhome {
+	display: block;
+	width: 60px;
+	height: 35px;
+}
+
+#anchorlinklogout {
+	display: block;
+	width: 75px;
+	height: 35px;
+}
+
+#anchorlinkcreateaccount, #anchorlinkcreateproject {
+	display: block;
+	width: 120px;
+	height: 35px;
+}
+
+#anchorlinkprojects {
+	display: block;
+	width: 107px;
+	height: 35px;
+}
+
+#anchorlinkhelp {
+	display: block;
+	width: 55px;
+	height: 35px;
+}
+
+.content, .footer {
+	margin-left: 200px;
+	margin-right: 200px;
+	white-space: nowrap;
+}
+
+/* unvisited link */
+/* visited link */
+/* mouse over link */
+/* selected link */
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000000;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+a:active {
+	color: #ff0000;
+}
+
+.introduction, .helptext {
+	text-align: justify;
+	text-justify: inter-word;
+	font-size: small;
+}
+
+#searchresultstitle {
+	display: none;
+}
+
+#searchresult {
+	display: none;
+	height: auto; 
+	min-height: 400px;
+	font-size: small;
+}
+
+.projecttitleview {
+    border: 1px solid #3366cc;
+    padding: 5px 20px; 
+    background: #daffec;
+    width: 800px;
+    border-radius: 15px;
+}
+
+.searchprojecttitleview {
+    border: 1px solid #3366cc;
+    padding: 5px 20px; 
+    background: #daffec;
+    width: 800px;
+    border-radius: 15px;
+}
+
+.readonlytextfield {
+	background-color: #e6e6e6;
+}
+
+.error, #matchpass, #loggedoutmsg {
+	font-size: small;
+	color: #ff0000;
+}
+
+#loggedinmsg {
+	color: green;
+	font-size: small;
+}
+
+input[type=text] {
+	padding: 5px; 
+	border: 1px solid #707070; 
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+input[type=text]:focus {
+	/*border-color: #333;*/
+	border: 1px solid #0066ff; 
+}
+
+input[type=password] {
+	padding: 5px; 
+	border: 1px solid #707070; 
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+input[type=password]:focus {
+	border-color: #0066ff; 
+}
+
+textarea {
+	padding: 5px; 
+	border: 1px solid #707070; 
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+textarea:focus {
+	border-color: #333; 
+}
+
+.createproject_one, .createproject_two, .createproject_three, .messagebox {
+	width: 375px; 
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.createproject_one {
+	height: 90px; 
+}
+
+.createproject_two, .createproject_three {
+	height: 70px; 
+}
+
+.createproject_tablecell, .createmessage_tablecell {
+	padding: 15px;
+}
+
+input[type=submit] {
+	padding: 5px 15px; 
+	background: #6699ff; 
+	border: 0 none;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	height: 35px;
+}
+
+input[type=submit]:hover {
+	padding: 5px 15px; 
+	background: #99ccff; 
+	border: 0 none;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	height: 35px;
+}
+
+button {
+	padding: 5px 15px; 
+	background: #6699ff; 
+	border: 0 none;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	height: 35px;
+}
+
+button:hover {
+	padding: 5px 15px; 
+	background: #99ccff; 
+	border: 0 none;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	height: 35px;
+}
+
+#projectcontainer {
+	width: 900px;
+}
+
+#projectblogview {
+	float: left;
+	width: 450px;
+}
+
+#projectdetailview {
+	width: 400px;
+	border: 1px solid black;
+	padding: 5px 5px 5px 20px;
+}
+
+label#projectdetail, #usermessagelabel, #projectnameflow, #projectblogtitle {
+	font-weight: bold;
+}
+
+#footerbackgroundcolorfade {
+    background: -webkit-linear-gradient(#ccffcc, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ccffcc, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ccffcc, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ccffcc, white); /* Standard syntax (must be last) */
+    height: 300px;
+}
+
+#usermessages, #footerinfo, #nosearchresults, #textareafeedback, #staysignedin {
+	font-size: small;
+}
+
+#usermessageborder {
+	border: 1px solid gray;
+}
+
+.errorred, #accessdenied {
+	color: red;
+}
+
+#contentlayoutinner {
+	white-space: normal; 
+	width: 400px; 
+	float: left;
+}
+
+#contentlayoutmargin {
+	margin-left: 460px;
+}
+
+#projectdeleted, #projectcreated, #messagesent, #accountcreated {
+	color: green; 
+	font-size: 22px;
+}
+
+#edityourproject {
+	height: 325px; 
+	color: red;
+}
+
+.nosearchresultsprojectflow {
+	font-size: small; 
+	height: auto; 
+	min-height: 400px;
+}
+
+#projectdetailtablecell {
+	width: 500px; 
+	padding: 0px 20px 0px 0px;
+}
+
+#postblogbutton {
+	height: 30px;
+}
+
+#projectblogentry {
+	white-space: pre-wrap;
+}
+
+#numberofblogs {
+	text-decoration: none;
+}
+
+#projectdetailviewtable {
+	width: 400px; 
+	white-space: pre-wrap;
+}
+
+#contentlayoutouter, #createprojectorganization, #createprojectdetails, #createproject, #sendmessage {
+	width: 100%; 
+	overflow: hidden;
+}
+
+#allfieldsrequired {
+	font-size: small; 
+	font-style: italic;
+}
