@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<!-- Set up the model (coincides with commandName in createproject.jsp, etc.) -->
+	<var name="project" class="com.myprojects.web.dao.entity.Project" />
+	<var name="projectDetails" class="com.myprojects.web.dao.entity.ProjectDetails" />
+	<var name="projectOrganization" class="com.myprojects.web.dao.entity.ProjectOrganization" />
+
+	<on-start>
+		<!-- See if we're editing/updating, i.e. this project has already been created -->
+		<evaluate expression="myProjectsService.getProject(flowRequestContext)" result="flowScope.project" />
+		<evaluate expression="myProjectsService.getProjectDetails(flowRequestContext)" result="flowScope.projectDetails" />
+		<evaluate expression="myProjectsService.getProjectOrganization(flowRequestContext)" result="flowScope.projectOrganization" />
+	</on-start>
+
+	<!-- Page 1: Project form -->
+	<view-state id="showCreateProjectForm" model="project">
+		<on-entry>
+			<!-- flowScope variable will endure the entire web flow -->
+			<set name="flowScope.projectOwner" value="requestParameters.owner"></set>
+		</on-entry>
+		<!-- send matches _eventid in createproject.jsp -->
+		<transition on="send" to="postProjectFormData"></transition>
+	</view-state>
+
+	<!-- Save the project high-level info -->
+	<action-state id="postProjectFormData">
+		<evaluate expression="myProjectsService.saveProject(project)"></evaluate>
+		<transition to="showCreateProjectDetailsForm"></transition>
+	</action-state>
+ 	
+	<!-- Page 2: Project detail form -->
+	<view-state id="showCreateProjectDetailsForm" model="projectDetails">
+		<transition on="back" to="showCreateProjectForm"></transition>
+		<transition on="submit" to="postProjectDetailsData"></transition>
+	</view-state>
+
+	<!-- Save the project detail-level info -->
+	<action-state id="postProjectDetailsData">
+		<evaluate expression="myProjectsService.saveProjectDetails(projectDetails, project)"></evaluate>
+		<transition to="showCreateProjectOrganizationForm"></transition>
+	</action-state>
+
+	<!-- Page 3: Project organization form -->
+	<view-state id="showCreateProjectOrganizationForm" model="projectOrganization">
+		<transition on="back" to="showCreateProjectDetailsForm"></transition>
+		<transition on="submit" to="postProjectOrganizationData"></transition>
+	</view-state>
+
+	<!-- Save the project organization-level info -->
+	<action-state id="postProjectOrganizationData">
+		<evaluate expression="myProjectsService.saveProjectOrganization(projectOrganization, project)"></evaluate>
+		<transition to="showProjectCreated"></transition>
+	</action-state>
+
+	<!-- Page 4: Project created view -->
+	<view-state id="showProjectCreated">
+		<on-entry>
+			<set name="flowScope.projectId" value="project.getId()"></set>
+		</on-entry>
+		<transition to="endState"></transition>
+	</view-state>
+	
+	<end-state id="endState" />
+
+</flow>
